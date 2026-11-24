@@ -1,0 +1,72 @@
+=== R12 run 1 ===
+Finalize GroupAggregate  (cost=4444.38..4514.17 rows=667 width=54) (actual time=13.311..14.860 rows=12 loops=1)
+  Group Key: (date_trunc('month'::text, booked_at)), booking_type
+  Buffers: shared hit=1981
+  ->  Gather Merge  (cost=4444.38..4499.26 rows=392 width=54) (actual time=13.172..14.850 rows=24 loops=1)
+        Workers Planned: 1
+        Workers Launched: 1
+        Buffers: shared hit=1981
+        ->  Partial GroupAggregate  (cost=3444.37..3455.15 rows=392 width=54) (actual time=10.790..12.436 rows=12 loops=2)
+              Group Key: (date_trunc('month'::text, booked_at)), booking_type
+              Buffers: shared hit=1981
+              ->  Sort  (cost=3444.37..3445.35 rows=392 width=20) (actual time=10.604..11.052 rows=22110 loops=2)
+                    Sort Key: (date_trunc('month'::text, booked_at)), booking_type
+                    Sort Method: quicksort  Memory: 1806kB
+                    Buffers: shared hit=1981
+                    Worker 0:  Sort Method: quicksort  Memory: 1804kB
+                    ->  Parallel Seq Scan on bookings  (cost=0.00..3427.49 rows=392 width=20) (actual time=2.491..8.602 rows=22110 loops=2)
+                          Filter: (((status)::text <> 'CANCELLED'::text) AND (EXTRACT(year FROM booked_at) = '2026'::numeric))
+                          Rows Removed by Filter: 50286
+                          Buffers: shared hit=1936
+Planning:
+  Buffers: shared hit=310
+Planning Time: 0.286 ms
+Execution Time: 14.949 ms
+=== R12 run 2 ===
+Finalize GroupAggregate  (cost=4444.38..4514.17 rows=667 width=54) (actual time=13.254..14.811 rows=12 loops=1)
+  Group Key: (date_trunc('month'::text, booked_at)), booking_type
+  Buffers: shared hit=1981
+  ->  Gather Merge  (cost=4444.38..4499.26 rows=392 width=54) (actual time=13.094..14.801 rows=24 loops=1)
+        Workers Planned: 1
+        Workers Launched: 1
+        Buffers: shared hit=1981
+        ->  Partial GroupAggregate  (cost=3444.37..3455.15 rows=392 width=54) (actual time=10.764..12.454 rows=12 loops=2)
+              Group Key: (date_trunc('month'::text, booked_at)), booking_type
+              Buffers: shared hit=1981
+              ->  Sort  (cost=3444.37..3445.35 rows=392 width=20) (actual time=10.573..11.030 rows=22110 loops=2)
+                    Sort Key: (date_trunc('month'::text, booked_at)), booking_type
+                    Sort Method: quicksort  Memory: 1818kB
+                    Buffers: shared hit=1981
+                    Worker 0:  Sort Method: quicksort  Memory: 1792kB
+                    ->  Parallel Seq Scan on bookings  (cost=0.00..3427.49 rows=392 width=20) (actual time=0.482..8.551 rows=22110 loops=2)
+                          Filter: (((status)::text <> 'CANCELLED'::text) AND (EXTRACT(year FROM booked_at) = '2026'::numeric))
+                          Rows Removed by Filter: 50286
+                          Buffers: shared hit=1936
+Planning:
+  Buffers: shared hit=310
+Planning Time: 0.292 ms
+Execution Time: 14.898 ms
+=== R12 run 3 ===
+Finalize GroupAggregate  (cost=4444.38..4514.17 rows=667 width=54) (actual time=13.099..14.640 rows=12 loops=1)
+  Group Key: (date_trunc('month'::text, booked_at)), booking_type
+  Buffers: shared hit=1981
+  ->  Gather Merge  (cost=4444.38..4499.26 rows=392 width=54) (actual time=12.957..14.630 rows=24 loops=1)
+        Workers Planned: 1
+        Workers Launched: 1
+        Buffers: shared hit=1981
+        ->  Partial GroupAggregate  (cost=3444.37..3455.15 rows=392 width=54) (actual time=10.701..12.330 rows=12 loops=2)
+              Group Key: (date_trunc('month'::text, booked_at)), booking_type
+              Buffers: shared hit=1981
+              ->  Sort  (cost=3444.37..3445.35 rows=392 width=20) (actual time=10.505..10.967 rows=22110 loops=2)
+                    Sort Key: (date_trunc('month'::text, booked_at)), booking_type
+                    Sort Method: quicksort  Memory: 1806kB
+                    Buffers: shared hit=1981
+                    Worker 0:  Sort Method: quicksort  Memory: 1804kB
+                    ->  Parallel Seq Scan on bookings  (cost=0.00..3427.49 rows=392 width=20) (actual time=2.449..8.539 rows=22110 loops=2)
+                          Filter: (((status)::text <> 'CANCELLED'::text) AND (EXTRACT(year FROM booked_at) = '2026'::numeric))
+                          Rows Removed by Filter: 50286
+                          Buffers: shared hit=1936
+Planning:
+  Buffers: shared hit=310
+Planning Time: 0.282 ms
+Execution Time: 14.735 ms
