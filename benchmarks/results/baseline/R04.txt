@@ -1,0 +1,105 @@
+=== R04 run 1 ===
+Sort  (cost=1548.74..1548.75 rows=3 width=31) (actual time=1.993..1.994 rows=3 loops=1)
+  Sort Key: rt.price_per_night
+  Sort Method: quicksort  Memory: 25kB
+  Buffers: shared hit=536
+  ->  GroupAggregate  (cost=1548.65..1548.72 rows=3 width=31) (actual time=1.981..1.984 rows=3 loops=1)
+        Group Key: rt.room_type_id
+        Buffers: shared hit=533
+        ->  Sort  (cost=1548.65..1548.66 rows=3 width=37) (actual time=1.978..1.979 rows=4 loops=1)
+              Sort Key: rt.room_type_id
+              Sort Method: quicksort  Memory: 25kB
+              Buffers: shared hit=533
+              ->  Nested Loop Left Join  (cost=185.83..1548.63 rows=3 width=37) (actual time=1.887..1.969 rows=4 loops=1)
+                    Buffers: shared hit=530
+                    ->  Hash Right Join  (cost=185.54..1535.90 rows=3 width=31) (actual time=1.874..1.939 rows=4 loops=1)
+                          Hash Cond: (hb.room_type_id = rt.room_type_id)
+                          Buffers: shared hit=521
+                          ->  Seq Scan on hotel_bookings hb  (cost=0.00..1346.39 rows=1513 width=12) (actual time=1.452..1.623 rows=209 loops=1)
+                                Filter: ((check_in < '2026-07-12'::date) AND (check_out > '2026-07-10'::date))
+                                Rows Removed by Filter: 59684
+                                Buffers: shared hit=448
+                          ->  Hash  (cost=185.50..185.50 rows=3 width=23) (actual time=0.302..0.302 rows=3 loops=1)
+                                Buckets: 1024  Batches: 1  Memory Usage: 9kB
+                                Buffers: shared hit=73
+                                ->  Seq Scan on room_types rt  (cost=0.00..185.50 rows=3 width=23) (actual time=0.023..0.299 rows=3 loops=1)
+                                      Filter: (hotel_id = 208)
+                                      Rows Removed by Filter: 8997
+                                      Buffers: shared hit=73
+                    ->  Index Scan using bookings_pkey on bookings b  (cost=0.29..4.24 rows=1 width=14) (actual time=0.007..0.007 rows=1 loops=4)
+                          Index Cond: (booking_id = hb.booking_id)
+                          Buffers: shared hit=9
+Planning:
+  Buffers: shared hit=228
+Planning Time: 0.320 ms
+Execution Time: 2.021 ms
+=== R04 run 2 ===
+Sort  (cost=1548.74..1548.75 rows=3 width=31) (actual time=1.853..1.854 rows=3 loops=1)
+  Sort Key: rt.price_per_night
+  Sort Method: quicksort  Memory: 25kB
+  Buffers: shared hit=536
+  ->  GroupAggregate  (cost=1548.65..1548.72 rows=3 width=31) (actual time=1.842..1.845 rows=3 loops=1)
+        Group Key: rt.room_type_id
+        Buffers: shared hit=533
+        ->  Sort  (cost=1548.65..1548.66 rows=3 width=37) (actual time=1.839..1.840 rows=4 loops=1)
+              Sort Key: rt.room_type_id
+              Sort Method: quicksort  Memory: 25kB
+              Buffers: shared hit=533
+              ->  Nested Loop Left Join  (cost=185.83..1548.63 rows=3 width=37) (actual time=1.762..1.832 rows=4 loops=1)
+                    Buffers: shared hit=530
+                    ->  Hash Right Join  (cost=185.54..1535.90 rows=3 width=31) (actual time=1.754..1.816 rows=4 loops=1)
+                          Hash Cond: (hb.room_type_id = rt.room_type_id)
+                          Buffers: shared hit=521
+                          ->  Seq Scan on hotel_bookings hb  (cost=0.00..1346.39 rows=1513 width=12) (actual time=1.442..1.611 rows=209 loops=1)
+                                Filter: ((check_in < '2026-07-12'::date) AND (check_out > '2026-07-10'::date))
+                                Rows Removed by Filter: 59684
+                                Buffers: shared hit=448
+                          ->  Hash  (cost=185.50..185.50 rows=3 width=23) (actual time=0.192..0.192 rows=3 loops=1)
+                                Buckets: 1024  Batches: 1  Memory Usage: 9kB
+                                Buffers: shared hit=73
+                                ->  Seq Scan on room_types rt  (cost=0.00..185.50 rows=3 width=23) (actual time=0.016..0.190 rows=3 loops=1)
+                                      Filter: (hotel_id = 208)
+                                      Rows Removed by Filter: 8997
+                                      Buffers: shared hit=73
+                    ->  Index Scan using bookings_pkey on bookings b  (cost=0.29..4.24 rows=1 width=14) (actual time=0.003..0.003 rows=1 loops=4)
+                          Index Cond: (booking_id = hb.booking_id)
+                          Buffers: shared hit=9
+Planning:
+  Buffers: shared hit=228
+Planning Time: 0.324 ms
+Execution Time: 1.884 ms
+=== R04 run 3 ===
+Sort  (cost=1548.74..1548.75 rows=3 width=31) (actual time=1.916..1.917 rows=3 loops=1)
+  Sort Key: rt.price_per_night
+  Sort Method: quicksort  Memory: 25kB
+  Buffers: shared hit=536
+  ->  GroupAggregate  (cost=1548.65..1548.72 rows=3 width=31) (actual time=1.904..1.907 rows=3 loops=1)
+        Group Key: rt.room_type_id
+        Buffers: shared hit=533
+        ->  Sort  (cost=1548.65..1548.66 rows=3 width=37) (actual time=1.901..1.902 rows=4 loops=1)
+              Sort Key: rt.room_type_id
+              Sort Method: quicksort  Memory: 25kB
+              Buffers: shared hit=533
+              ->  Nested Loop Left Join  (cost=185.83..1548.63 rows=3 width=37) (actual time=1.824..1.894 rows=4 loops=1)
+                    Buffers: shared hit=530
+                    ->  Hash Right Join  (cost=185.54..1535.90 rows=3 width=31) (actual time=1.813..1.877 rows=4 loops=1)
+                          Hash Cond: (hb.room_type_id = rt.room_type_id)
+                          Buffers: shared hit=521
+                          ->  Seq Scan on hotel_bookings hb  (cost=0.00..1346.39 rows=1513 width=12) (actual time=1.494..1.671 rows=209 loops=1)
+                                Filter: ((check_in < '2026-07-12'::date) AND (check_out > '2026-07-10'::date))
+                                Rows Removed by Filter: 59684
+                                Buffers: shared hit=448
+                          ->  Hash  (cost=185.50..185.50 rows=3 width=23) (actual time=0.191..0.191 rows=3 loops=1)
+                                Buckets: 1024  Batches: 1  Memory Usage: 9kB
+                                Buffers: shared hit=73
+                                ->  Seq Scan on room_types rt  (cost=0.00..185.50 rows=3 width=23) (actual time=0.016..0.189 rows=3 loops=1)
+                                      Filter: (hotel_id = 208)
+                                      Rows Removed by Filter: 8997
+                                      Buffers: shared hit=73
+                    ->  Index Scan using bookings_pkey on bookings b  (cost=0.29..4.24 rows=1 width=14) (actual time=0.004..0.004 rows=1 loops=4)
+                          Index Cond: (booking_id = hb.booking_id)
+                          Buffers: shared hit=9
+Planning:
+  Buffers: shared hit=228
+Planning Time: 0.314 ms
+Execution Time: 1.946 ms

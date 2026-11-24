@@ -1,0 +1,105 @@
+=== R15 run 1 ===
+Sort  (cost=5737.15..5737.19 rows=18 width=15) (actual time=16.744..16.746 rows=18 loops=1)
+  Sort Key: (sum((hb.rooms * (LEAST(hb.check_out, '2026-07-01'::date) - GREATEST(hb.check_in, '2026-06-01'::date))))) DESC
+  Sort Method: quicksort  Memory: 25kB
+  Buffers: shared hit=2460
+  ->  HashAggregate  (cost=5736.59..5736.77 rows=18 width=15) (actual time=16.734..16.737 rows=18 loops=1)
+        Group Key: h.city_name
+        Batches: 1  Memory Usage: 24kB
+        Buffers: shared hit=2457
+        ->  Hash Join  (cost=1553.76..5662.69 rows=4927 width=19) (actual time=3.353..16.444 rows=3117 loops=1)
+              Hash Cond: (hb.hotel_id = h.hotel_id)
+              Buffers: shared hit=2457
+              ->  Hash Join  (cost=1413.26..5509.23 rows=4927 width=16) (actual time=3.030..15.845 rows=3117 loops=1)
+                    Hash Cond: (b.booking_id = hb.booking_id)
+                    Buffers: shared hit=2384
+                    ->  Seq Scan on bookings b  (cost=0.00..3745.90 rows=133358 width=4) (actual time=0.002..9.287 rows=133298 loops=1)
+                          Filter: ((status)::text <> 'CANCELLED'::text)
+                          Rows Removed by Filter: 11494
+                          Buffers: shared hit=1936
+                    ->  Hash  (cost=1346.39..1346.39 rows=5349 width=20) (actual time=1.936..1.936 rows=3375 loops=1)
+                          Buckets: 8192  Batches: 1  Memory Usage: 236kB
+                          Buffers: shared hit=448
+                          ->  Seq Scan on hotel_bookings hb  (cost=0.00..1346.39 rows=5349 width=20) (actual time=1.346..1.717 rows=3375 loops=1)
+                                Filter: ((check_in < '2026-07-01'::date) AND (check_out > '2026-06-01'::date))
+                                Rows Removed by Filter: 56518
+                                Buffers: shared hit=448
+              ->  Hash  (cost=103.00..103.00 rows=3000 width=11) (actual time=0.316..0.316 rows=3000 loops=1)
+                    Buckets: 4096  Batches: 1  Memory Usage: 163kB
+                    Buffers: shared hit=73
+                    ->  Seq Scan on hotels h  (cost=0.00..103.00 rows=3000 width=11) (actual time=0.003..0.151 rows=3000 loops=1)
+                          Buffers: shared hit=73
+Planning:
+  Buffers: shared hit=289
+Planning Time: 0.347 ms
+Execution Time: 16.805 ms
+=== R15 run 2 ===
+Sort  (cost=5737.15..5737.19 rows=18 width=15) (actual time=16.414..16.415 rows=18 loops=1)
+  Sort Key: (sum((hb.rooms * (LEAST(hb.check_out, '2026-07-01'::date) - GREATEST(hb.check_in, '2026-06-01'::date))))) DESC
+  Sort Method: quicksort  Memory: 25kB
+  Buffers: shared hit=2460
+  ->  HashAggregate  (cost=5736.59..5736.77 rows=18 width=15) (actual time=16.404..16.406 rows=18 loops=1)
+        Group Key: h.city_name
+        Batches: 1  Memory Usage: 24kB
+        Buffers: shared hit=2457
+        ->  Hash Join  (cost=1553.76..5662.69 rows=4927 width=19) (actual time=3.241..16.118 rows=3117 loops=1)
+              Hash Cond: (hb.hotel_id = h.hotel_id)
+              Buffers: shared hit=2457
+              ->  Hash Join  (cost=1413.26..5509.23 rows=4927 width=16) (actual time=2.918..15.529 rows=3117 loops=1)
+                    Hash Cond: (b.booking_id = hb.booking_id)
+                    Buffers: shared hit=2384
+                    ->  Seq Scan on bookings b  (cost=0.00..3745.90 rows=133358 width=4) (actual time=0.002..9.189 rows=133298 loops=1)
+                          Filter: ((status)::text <> 'CANCELLED'::text)
+                          Rows Removed by Filter: 11494
+                          Buffers: shared hit=1936
+                    ->  Hash  (cost=1346.39..1346.39 rows=5349 width=20) (actual time=1.922..1.922 rows=3375 loops=1)
+                          Buckets: 8192  Batches: 1  Memory Usage: 236kB
+                          Buffers: shared hit=448
+                          ->  Seq Scan on hotel_bookings hb  (cost=0.00..1346.39 rows=5349 width=20) (actual time=1.334..1.709 rows=3375 loops=1)
+                                Filter: ((check_in < '2026-07-01'::date) AND (check_out > '2026-06-01'::date))
+                                Rows Removed by Filter: 56518
+                                Buffers: shared hit=448
+              ->  Hash  (cost=103.00..103.00 rows=3000 width=11) (actual time=0.315..0.315 rows=3000 loops=1)
+                    Buckets: 4096  Batches: 1  Memory Usage: 163kB
+                    Buffers: shared hit=73
+                    ->  Seq Scan on hotels h  (cost=0.00..103.00 rows=3000 width=11) (actual time=0.004..0.150 rows=3000 loops=1)
+                          Buffers: shared hit=73
+Planning:
+  Buffers: shared hit=289
+Planning Time: 0.317 ms
+Execution Time: 16.472 ms
+=== R15 run 3 ===
+Sort  (cost=5737.15..5737.19 rows=18 width=15) (actual time=16.400..16.401 rows=18 loops=1)
+  Sort Key: (sum((hb.rooms * (LEAST(hb.check_out, '2026-07-01'::date) - GREATEST(hb.check_in, '2026-06-01'::date))))) DESC
+  Sort Method: quicksort  Memory: 25kB
+  Buffers: shared hit=2460
+  ->  HashAggregate  (cost=5736.59..5736.77 rows=18 width=15) (actual time=16.390..16.392 rows=18 loops=1)
+        Group Key: h.city_name
+        Batches: 1  Memory Usage: 24kB
+        Buffers: shared hit=2457
+        ->  Hash Join  (cost=1553.76..5662.69 rows=4927 width=19) (actual time=3.227..16.109 rows=3117 loops=1)
+              Hash Cond: (hb.hotel_id = h.hotel_id)
+              Buffers: shared hit=2457
+              ->  Hash Join  (cost=1413.26..5509.23 rows=4927 width=16) (actual time=2.907..15.524 rows=3117 loops=1)
+                    Hash Cond: (b.booking_id = hb.booking_id)
+                    Buffers: shared hit=2384
+                    ->  Seq Scan on bookings b  (cost=0.00..3745.90 rows=133358 width=4) (actual time=0.002..9.193 rows=133298 loops=1)
+                          Filter: ((status)::text <> 'CANCELLED'::text)
+                          Rows Removed by Filter: 11494
+                          Buffers: shared hit=1936
+                    ->  Hash  (cost=1346.39..1346.39 rows=5349 width=20) (actual time=1.898..1.899 rows=3375 loops=1)
+                          Buckets: 8192  Batches: 1  Memory Usage: 236kB
+                          Buffers: shared hit=448
+                          ->  Seq Scan on hotel_bookings hb  (cost=0.00..1346.39 rows=5349 width=20) (actual time=1.293..1.679 rows=3375 loops=1)
+                                Filter: ((check_in < '2026-07-01'::date) AND (check_out > '2026-06-01'::date))
+                                Rows Removed by Filter: 56518
+                                Buffers: shared hit=448
+              ->  Hash  (cost=103.00..103.00 rows=3000 width=11) (actual time=0.310..0.311 rows=3000 loops=1)
+                    Buckets: 4096  Batches: 1  Memory Usage: 163kB
+                    Buffers: shared hit=73
+                    ->  Seq Scan on hotels h  (cost=0.00..103.00 rows=3000 width=11) (actual time=0.003..0.147 rows=3000 loops=1)
+                          Buffers: shared hit=73
+Planning:
+  Buffers: shared hit=289
+Planning Time: 0.305 ms
+Execution Time: 16.453 ms
