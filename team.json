@@ -1,0 +1,17 @@
+{
+  "team_number": "T0151",
+  "group_lead": {
+    "name": "Saksham Saxena",
+    "enrollment_no": "2501010395",
+    "github": "Saksham189004"
+  },
+  "members": [
+    {
+      "name": "Saksham Saxena",
+      "enrollment_no": "2501010395",
+      "github": "Saksham189004"
+    }
+  ],
+  "postgres_version": "16.16",
+  "laptop_used_for_benchmarks": "Apple MacBook Pro (Apple Silicon ARM64)"
+}

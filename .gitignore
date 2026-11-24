@@ -1,0 +1,6 @@
+seed_data/
+large_data/
+*.zip
+.DS_Store
+__pycache__/
+*.pyc
