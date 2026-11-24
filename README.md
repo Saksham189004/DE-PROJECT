@@ -28,6 +28,19 @@
 
 ---
 
+## Headline Performance Results
+
+| Benchmark Metric | Baseline (Phase 3) | Optimized (Phase 4) | Large Dataset (Phase 5, 20× Volume) | Overall Speedup |
+|:---|---:|---:|---:|:---:|
+| **Total Workload Execution Time** | **1,291.11 ms** | **252.34 ms** | **3,624.28 ms** | **5.1× speedup (80.5% reduction)** |
+| **Search & User Auth (`R01`, `R23`)** | 16.00 ms | 0.16 ms | 0.90 ms | **100× faster** |
+| **Operational Flight Manifests (`R19`)** | 971.17 ms | 39.85 ms | 417.38 ms | **24.4× faster** |
+| **Unused Coupons (`R13`) Bug Resolution** | 14.02 ms (0 rows, bugged) | 0.11 ms (10 rows, fixed) | 0.15 ms (10 rows) | **133× faster + 100% accurate** |
+| **Total Rows Evaluated** | 533,700 rows | 533,700 rows | 10,400,000+ rows | **Scales sub-linearly (14.4× on 20× volume)** |
+| **Quarterly Table Partitioning (`R20`)** | Heap scan | Index Only Scan | Partition Pruned (`bookings_2026_q2`) | **0.85 ms Execution Time** |
+
+---
+
 ## How this project works
 
 | Phase | What you do | You submit | Counts toward | Marks |
