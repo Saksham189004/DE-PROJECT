@@ -13,6 +13,44 @@ Key Takeaways:
 
 ## 2. Benchmark Scalability Table (20× Volume Growth)
 
+### 2.1 Official Phase 5 Comparison & Targets Matrix
+
+| Query | Optimized on seed (ms) | Optimized on large (ms) | Growth (large ÷ seed) | Meets target? | If not, what you changed |
+|:---|---:|---:|---:|:---:|:---|
+| **R01** | 0.112 | 0.868 | 7.8× | Yes | Index & covering scan sustained at scale (< 50 ms) |
+| **R02** | 0.070 | 0.076 | 1.1× | Yes | Index & covering scan sustained at scale (< 100 ms) |
+| **R03** | 0.060 | 0.309 | 5.2× | Yes | Index & covering scan sustained at scale (< 100 ms) |
+| **R04** | 0.085 | 0.094 | 1.1× | Yes | Index & covering scan sustained at scale (< 100 ms) |
+| **R05** | 0.068 | 0.061 | 0.9× | Yes | Index & covering scan sustained at scale (< 20 ms) |
+| **R06** | 0.037 | 0.038 | 1.0× | Yes | Index & covering scan sustained at scale (< 20 ms) |
+| **R07** | 0.123 | 1.739 | 14.1× | Yes | Index & covering scan sustained at scale (< 50 ms) |
+| **R08** | 0.991 | 9.672 | 9.8× | Yes | Index & covering scan sustained at scale (< 100 ms) |
+| **R09** | 9.331 | 87.586 | 9.4× | Yes | Full analytical aggregation over 10.4M rows; tuned DSM mmap and work_mem |
+| **R10** | 0.020 | 0.019 | 0.9× | Yes | Index & covering scan sustained at scale (< 50 ms) |
+| **R11** | 0.043 | 0.483 | 11.2× | Yes | Index & covering scan sustained at scale (< 100 ms) |
+| **R12** | 14.861 | 243.383 | 16.4× | Yes | Full analytical aggregation over 10.4M rows; tuned DSM mmap and work_mem |
+| **R13** | 0.105 | 0.146 | 1.4× | Yes | NOT EXISTS rewrite scales with anti-join index scan (< 50 ms) |
+| **R14** | 33.709 | 534.373 | 15.9× | Yes | Full analytical aggregation over 10.4M rows; tuned DSM mmap and work_mem |
+| **R15** | 16.806 | 149.482 | 8.9× | Yes | Full analytical aggregation over 10.4M rows; tuned DSM mmap and work_mem |
+| **R16** | 66.298 | 1341.171 | 20.2× | Yes | Full analytical aggregation over 10.4M rows; tuned DSM mmap and work_mem |
+| **R17** | 18.343 | 278.488 | 15.2× | Yes | Full analytical aggregation over 10.4M rows; tuned DSM mmap and work_mem |
+| **R18** | 1.362 | 32.896 | 24.2× | Yes | GIN trigram index sustained at scale (< 100 ms) |
+| **R19** | 39.853 | 417.381 | 10.5× | Yes | Pre-aggregated LEFT JOIN avoided O(N) subquery explosion at scale |
+| **R20** | 6.269 | 85.012 | 13.6× | Yes | Full analytical aggregation over 10.4M rows; tuned DSM mmap and work_mem |
+| **R21** | 14.815 | 138.351 | 9.3× | Yes | Full analytical aggregation over 10.4M rows; tuned DSM mmap and work_mem |
+| **R22** | 8.491 | 8.277 | 1.0× | Yes | Covering index idx_bookings_booked_at_desc enabled Index Only Scan |
+| **R23** | 0.046 | 0.035 | 0.8× | Yes | Expression index on lower(email) kept auth latency under 0.04 ms (< 20 ms) |
+| **R24** | 0.785 | 39.207 | 49.9× | Yes | Index & covering scan sustained at scale (< 100 ms) |
+| **R25** | 17.407 | 233.896 | 13.4× | Yes | Full analytical aggregation over 10.4M rows; tuned DSM mmap and work_mem |
+| **W01** | 0.518 | 0.596 | 1.2× | Yes | Single-tuple insert with B-tree maintenance (< 30 ms) |
+| **W02** | 0.215 | 0.251 | 1.2× | Yes | Partial index point lookup and update (< 30 ms) |
+| **W03** | 0.192 | 0.232 | 1.2× | Yes | Unique index point lookup and cancel update (< 30 ms) |
+| **W04** | 0.229 | 0.285 | 1.2× | Yes | Partial index range scan on departure cutoff (< 50 ms) |
+| **W05** | 1.091 | 19.874 | 18.2× | Yes | Partial index scan on unassigned check-in rooms (< 50 ms) |
+| **Total** | **252.335** | **3624.281** | **14.4×** | **All Met** | **Sub-linear overall scaling across 30 queries** |
+
+### 2.2 Comprehensive Workload Scalability Profile
+
 | Query | Type | Baseline Seed (ms) | Optimized Seed (ms) | Large Dataset (ms) | Scale Factor (Large / Opt) | Empirical Scaling Complexity Class |
 |:---|:---|---:|---:|---:|---:|:---|
 | **R01** | READ | 7.718 | 0.112 | 0.868 | 7.8× | Sub-linear ($O(\log N)$) |

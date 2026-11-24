@@ -304,8 +304,9 @@ The relational schema retains a few intentional denormalized attributes for oper
 
 ## 5. Ingestion Verification & Integrity Checks
 
-All 12 files from `seed_data/` were ingested using PostgreSQL `\copy` with zero constraint violations. The row counts strictly match the official baseline:
+All 12 files from `seed_data/` and `large_data/` were ingested using PostgreSQL `\copy` with zero constraint violations. The row counts strictly match the official baseline and 20× large scale specifications:
 
+### Seed Dataset (144k Bookings Baseline)
 | Table | CSV File | Loaded Rows | Expected Rows | Status |
 |:---|:---|---:|---:|:---:|
 | `airports` | `airports.csv` | 16 | 16 | Verified |
@@ -320,6 +321,22 @@ All 12 files from `seed_data/` were ingested using PostgreSQL `\copy` with zero 
 | `passengers` | `passengers.csv` | 163,380 | 163,380 | Verified |
 | `hotel_bookings` | `hotel_bookings.csv` | 59,893 | 59,893 | Verified |
 | `hotel_reviews` | `hotel_reviews.csv` | 15,913 | 15,913 | Verified |
+
+### Large Dataset (10.4 Million Rows Phase 5 Round)
+| Table | CSV File | Loaded Rows | Scale Multiple | Status |
+|:---|:---|---:|---:|:---:|
+| `airports` | `airports.csv` | 16 | 1.0× | Verified |
+| `airlines` | `airlines.csv` | 5 | 1.0× | Verified |
+| `flights` | `flights.csv` | 13,848 | 1.0× | Verified |
+| `hotels` | `hotels.csv` | 60,000 | 20.0× | Verified |
+| `room_types` | `room_types.csv` | 180,000 | 20.0× | Verified |
+| `customers` | `customers.csv` | 800,000 | 20.0× | Verified |
+| `coupons` | `coupons.csv` | 30 | 1.0× | Verified |
+| `bookings` | `bookings.csv` | 2,897,285 | 20.0× | Verified |
+| `flight_bookings` | `flight_bookings.csv` | 1,698,936 | 20.0× | Verified |
+| `passengers` | `passengers.csv` | 3,272,394 | 20.0× | Verified |
+| `hotel_bookings` | `hotel_bookings.csv` | 1,198,349 | 20.0× | Verified |
+| `hotel_reviews` | `hotel_reviews.csv` | 318,847 | 20.0× | Verified |
 
 ### 5.1 Verification Queries & Results
 
