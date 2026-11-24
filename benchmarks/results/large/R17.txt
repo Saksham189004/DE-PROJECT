@@ -1,0 +1,66 @@
+=== R17 run 1 ===
+Sort  (cost=112532.61..112947.47 rows=165944 width=44) (actual time=286.100..289.567 rows=61205 loops=1)
+  Sort Key: (count(*)) DESC, (sum(total_amount)) DESC
+  Sort Method: external merge  Disk: 2016kB
+  Buffers: shared hit=355580 read=12784 written=34, temp read=252 written=253
+  ->  GroupAggregate  (cost=0.43..93038.49 rows=165944 width=44) (actual time=3.135..252.037 rows=61205 loops=1)
+        Group Key: customer_id
+        Filter: (count(*) >= 3)
+        Rows Removed by Filter: 438895
+        Buffers: shared hit=355574 read=12784 written=34
+        ->  Index Only Scan using idx_bookings_customer_completed on bookings b  (cost=0.43..79254.00 rows=842269 width=10) (actual time=0.072..124.453 rows=784288 loops=1)
+              Index Cond: (booked_at >= '2026-01-01 00:00:00+00'::timestamp with time zone)
+              Heap Fetches: 0
+              Buffers: shared hit=355574 read=12784 written=34
+Planning:
+  Buffers: shared hit=325
+Planning Time: 0.548 ms
+JIT:
+  Functions: 5
+  Options: Inlining false, Optimization false, Expressions true, Deforming true
+  Timing: Generation 0.177 ms, Inlining 0.000 ms, Optimization 0.240 ms, Emission 2.804 ms, Total 3.221 ms
+Execution Time: 305.278 ms
+=== R17 run 2 ===
+Sort  (cost=112532.61..112947.47 rows=165944 width=44) (actual time=274.611..277.921 rows=61205 loops=1)
+  Sort Key: (count(*)) DESC, (sum(total_amount)) DESC
+  Sort Method: external merge  Disk: 2016kB
+  Buffers: shared hit=359391 read=8973 written=20, temp read=252 written=253
+  ->  GroupAggregate  (cost=0.43..93038.49 rows=165944 width=44) (actual time=2.103..240.004 rows=61205 loops=1)
+        Group Key: customer_id
+        Filter: (count(*) >= 3)
+        Rows Removed by Filter: 438895
+        Buffers: shared hit=359385 read=8973 written=20
+        ->  Index Only Scan using idx_bookings_customer_completed on bookings b  (cost=0.43..79254.00 rows=842269 width=10) (actual time=0.050..110.054 rows=784288 loops=1)
+              Index Cond: (booked_at >= '2026-01-01 00:00:00+00'::timestamp with time zone)
+              Heap Fetches: 0
+              Buffers: shared hit=359385 read=8973 written=20
+Planning:
+  Buffers: shared hit=325
+Planning Time: 0.340 ms
+JIT:
+  Functions: 5
+  Options: Inlining false, Optimization false, Expressions true, Deforming true
+  Timing: Generation 0.157 ms, Inlining 0.000 ms, Optimization 0.092 ms, Emission 1.948 ms, Total 2.197 ms
+Execution Time: 287.548 ms
+=== R17 run 3 ===
+Sort  (cost=112532.61..112947.47 rows=165944 width=44) (actual time=229.494..232.943 rows=61205 loops=1)
+  Sort Key: (count(*)) DESC, (sum(total_amount)) DESC
+  Sort Method: external merge  Disk: 2016kB
+  Buffers: shared hit=368364, temp read=252 written=253
+  ->  GroupAggregate  (cost=0.43..93038.49 rows=165944 width=44) (actual time=1.863..197.294 rows=61205 loops=1)
+        Group Key: customer_id
+        Filter: (count(*) >= 3)
+        Rows Removed by Filter: 438895
+        Buffers: shared hit=368358
+        ->  Index Only Scan using idx_bookings_customer_completed on bookings b  (cost=0.43..79254.00 rows=842269 width=10) (actual time=0.025..71.886 rows=784288 loops=1)
+              Index Cond: (booked_at >= '2026-01-01 00:00:00+00'::timestamp with time zone)
+              Heap Fetches: 0
+              Buffers: shared hit=368358
+Planning:
+  Buffers: shared hit=325
+Planning Time: 0.427 ms
+JIT:
+  Functions: 5
+  Options: Inlining false, Optimization false, Expressions true, Deforming true
+  Timing: Generation 0.136 ms, Inlining 0.000 ms, Optimization 0.106 ms, Emission 1.718 ms, Total 1.960 ms
+Execution Time: 242.638 ms

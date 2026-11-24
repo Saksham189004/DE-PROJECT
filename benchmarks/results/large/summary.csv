@@ -1,0 +1,31 @@
+query_id,type,avg_ms,median_ms,min_ms,max_ms,scan_nodes
+R01,READ,0.868,0.352,0.293,1.960,Index Only Scan using idx_flights_route_depart on flights | Index Only Scan using idx_flight_bookings_flight_id on flight_bookings | Index Scan using bookings_pkey on bookings
+R02,READ,0.076,0.070,0.056,0.101,Index Only Scan using idx_flights_route_depart on flights
+R03,READ,0.309,0.276,0.266,0.384,Index Only Scan using idx_hotels_goa_pool on hotels
+R04,READ,0.094,0.093,0.063,0.127,Index Only Scan using idx_room_types_hotel_id on room_types | Index Only Scan using idx_hotel_bookings_room_dates on hotel_bookings | Index Scan using bookings_pkey on bookings
+R05,READ,0.061,0.046,0.038,0.099,Index Only Scan using idx_bookings_customer_status on bookings | Index Scan using flight_bookings_pkey on flight_bookings | Index Scan using flights_pkey on flights | Index Scan using hotel_bookings_pkey on hotel_bookings
+R06,READ,0.038,0.027,0.023,0.063,Index Scan using bookings_booking_ref_key on bookings
+R07,READ,1.739,1.159,0.668,3.391,Index Only Scan using idx_flight_bookings_flight_id on flight_bookings | Index Only Scan using idx_passengers_booking_id on passengers | Index Scan using bookings_pkey on bookings
+R08,READ,9.672,9.277,9.276,10.462,Index Only Scan using idx_flights_sched_depart on flights | Index Only Scan using idx_flight_bookings_flight_id on flight_bookings
+R09,READ,87.586,81.450,72.050,109.258,Seq Scan on flight_bookings | Index Only Scan using idx_bookings_booked_at_desc on bookings | Seq Scan on flights
+R10,READ,0.019,0.019,0.016,0.021,Index Only Scan using idx_flights_delayed on flights
+R11,READ,0.483,0.443,0.409,0.596,Index Scan using idx_bookings_pending_payment_id on bookings
+R12,READ,243.383,246.021,231.386,252.743,Seq Scan on bookings
+R13,READ,0.146,0.101,0.096,0.241,Seq Scan on coupons | Index Only Scan using idx_bookings_coupon_code on bookings
+R14,READ,534.373,512.876,508.048,582.194,Seq Scan on bookings | Seq Scan on flight_bookings | Seq Scan on flights | Seq Scan on airlines
+R15,READ,149.482,148.300,141.398,158.749,Seq Scan on bookings | Seq Scan on hotel_bookings | Seq Scan on hotels
+R16,READ,1341.171,1335.654,1288.057,1399.801,Seq Scan on bookings | Seq Scan on customers | Seq Scan on flight_bookings | Seq Scan on flights | Seq Scan on hotel_bookings
+R17,READ,278.488,287.548,242.638,305.278,Index Only Scan using idx_bookings_customer_completed on bookings
+R18,READ,32.896,28.365,26.953,43.369,Bitmap Heap Scan on hotel_reviews | Bitmap Index Scan on idx_hotel_reviews_trgm | Index Only Scan using idx_hotels_city_id on hotels
+R19,READ,417.381,408.975,393.656,449.511,Seq Scan on passengers | Seq Scan on flight_bookings | Seq Scan on flights
+R20,READ,85.012,69.730,69.053,116.252,Seq Scan on bookings
+R21,READ,138.351,134.707,132.767,147.580,Index Only Scan using idx_flights_route_depart on flights | Index Only Scan using idx_flight_bookings_flight_id on flight_bookings | Index Only Scan using idx_passengers_seniors on passengers
+R22,READ,8.277,7.511,7.399,9.920,Index Only Scan using idx_bookings_booked_at_desc on bookings
+R23,READ,0.035,0.025,0.024,0.055,Index Scan using idx_customers_lower_email on customers
+R24,READ,39.207,39.024,38.527,40.069,Seq Scan on hotel_reviews | Index Only Scan using idx_hotels_city_id on hotels
+R25,READ,233.896,241.962,213.650,246.075,Seq Scan on flight_bookings | Index Only Scan using idx_bookings_booked_at_desc on bookings | Seq Scan on flights
+W01,WRITE,0.596,0.523,0.500,0.766,(no scan)
+W02,WRITE,0.251,0.219,0.214,0.320,Index Only Scan using idx_bookings_pending_payment_id on bookings | Index Scan using bookings_pkey on bookings
+W03,WRITE,0.232,0.191,0.180,0.326,Index Scan using bookings_booking_ref_key on bookings
+W04,WRITE,0.285,0.239,0.222,0.394,Index Scan using idx_flights_depart_cutoff on flights
+W05,WRITE,19.874,11.362,10.584,37.676,Index Scan using idx_hotel_bookings_checkin_unassigned on hotel_bookings | Index Scan using bookings_pkey on bookings
